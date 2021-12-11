@@ -1,0 +1,23 @@
+{
+  "name": "Fade",
+  "symbol": "",
+  "image": "3.png",
+  "collection": {
+    "name": "Robots X NFT",
+    "family": "Vaporwave"
+  },
+  "properties": {
+    "files": [
+      {
+        "uri": "3.png",
+        "type": "image/png"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2ynVW9r4ptv6R4ac42YTUCWcZKg2CGgJ3rum3pPFLeB6",
+        "share": 100
+      }
+    ]
+  }
+}

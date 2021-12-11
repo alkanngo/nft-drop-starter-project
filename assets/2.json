@@ -1,0 +1,23 @@
+{
+  "name": "Drugdealer",
+  "symbol": "",
+  "image": "2.png",
+  "collection": {
+    "name": "Robots X NFT",
+    "family": "Vaporwave"
+  },
+  "properties": {
+    "files": [
+      {
+        "uri": "2.png",
+        "type": "image/png"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2ynVW9r4ptv6R4ac42YTUCWcZKg2CGgJ3rum3pPFLeB6",
+        "share": 100
+      }
+    ]
+  }
+}

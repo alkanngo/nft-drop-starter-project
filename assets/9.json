@@ -1,0 +1,23 @@
+{
+  "name": "Stripper",
+  "symbol": "",
+  "image": "9.png",
+  "collection": {
+    "name": "Robots X NFT",
+    "family": "Vaporwave"
+  },
+  "properties": {
+    "files": [
+      {
+        "uri": "9.png",
+        "type": "image/png"
+      }
+    ],
+    "creators": [
+      {
+        "address": "2ynVW9r4ptv6R4ac42YTUCWcZKg2CGgJ3rum3pPFLeB6",
+        "share": 100
+      }
+    ]
+  }
+}
