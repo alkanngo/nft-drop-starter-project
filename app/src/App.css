@@ -1,9 +1,18 @@
 .App {
   height: 100vh;
-  background-color: rgb(20, 20, 20);
+  background-color: rgba(20, 20, 20, 0.5);
   overflow: scroll;
   text-align: center;
   overflow: hidden;
+  color: #333;
+}
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .container {
@@ -12,7 +21,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 30px 0 30px;
-  color: white;
+  color: #333;
   position: relative;
   /* background-color: #35aee2; */
 }
@@ -26,12 +35,18 @@
 
 .header-container {
   /* background-color: #60c657; */
+  color: #333;
 }
 
 .header {
   margin: 0;
   font-size: 50px;
   font-weight: bold;
+  font-family: 'Audiowide', cursive;
+}
+
+.header > span {
+  font-weight: lighter;
 }
 
 .sub-text {
@@ -49,23 +64,26 @@
   height: 45px;
   border: 0;
   width: auto;
+  max-width: 200px;
   padding-left: 40px;
   padding-right: 40px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+  font-family: 'Audiowide', cursive;
   font-weight: bold;
+  justify-self: center;
+  color: white;
 }
 
 .connect-wallet-button {
-  color: white;
-  background: -webkit-linear-gradient(left, #ff8867, #ff52ff);
+  background: -webkit-linear-gradient(left, #ff8867, #332c88);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #4e44ce, #35aee2);
+  background: -webkit-linear-gradient(left, #ff8867, #332c88);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
   margin-left: 10px;
@@ -90,7 +108,9 @@
 .footer-text {
   font-size: 16px;
   font-weight: bold;
-  color: white;
+  font-family: 'Audiowide', cursive;
+  color: #333;
+
 }
 
 .connected-container input[type='text'] {
