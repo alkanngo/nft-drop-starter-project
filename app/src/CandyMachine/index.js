@@ -27,6 +27,8 @@ const MAX_CREATOR_LEN = 32 + 1 + 1;
 const CandyMachine = ({ walletAddress }) => {
 
   const [machineStats, setMachineStats] = useState(null);
+  const [mints, setMints] = useState([]);
+
 
   useEffect(() => {
     getCandyMachineState();
@@ -91,7 +93,48 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveData,
       goLiveDateTimeString,
     });
+
+    const data = await fetchHashTable(
+      process.env.REACT_APP_CANDY_MACHINE_ID,
+      true
+    );
+    
+    if (data.length !== 0) {
+      for (const mint of data) {
+        // Get URI
+        const response = await fetch(mint.data.uri);
+        const parse = await response.json();
+        console.log("Past Minted NFT", mint)
+        console.log(parse)
+    
+        // Get image URI, Fancy JS to avoid adding the same mint twice.
+        if (!mints.find((mint) => mint.image === parse.image)) {
+          setMints((prevState) => [...prevState, parse]);
+
+        }
+      }
+    }
   };
+
+  const renderMintedItems = () => (
+    <div className="gif-container">
+      <p className="sub-text">Minted Items ✨</p>
+      <div className="gif-grid">
+        {mints.map((mint) => (
+          <div className="gif-item" key={mint.image}>
+            <img src={mint.image} alt={`Minted NFT ${mint.image}`} />
+            <div className="gif-info">
+              <h4>Name:</h4>
+              <p className="name">{mint.name}</p>
+              <h4>Collection:</h4>
+              <p className="name vapor">{mint.collection.family}</p>
+              <p className="name">{mint.collection.name}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
 
   // Actions
@@ -325,9 +368,10 @@ const CandyMachine = ({ walletAddress }) => {
       <div className="machine-container">
         <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>
         <p>{`Items Minted: ${machineStats.itemsRedeemed} / ${machineStats.itemsAvailable}`}</p>
-        <button className="cta-button mint-button" onClick={null}>
+        <button className="cta-button mint-button" onClick={mintToken}>
             Mint NFT
         </button>
+        {mints.length > 0 && renderMintedItems()}
       </div>
     )
   );

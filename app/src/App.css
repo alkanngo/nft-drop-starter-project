@@ -1,40 +1,48 @@
 .App {
-  height: 100vh;
+  position: relative;
+  min-height: 100vh;
   background-color: rgba(20, 20, 20, 0.5);
   overflow: scroll;
   text-align: center;
-  overflow: hidden;
   color: #333;
 }
 
-#myVideo {
+.myVideo {
   position: fixed;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+  z-index: 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background: -webkit-linear-gradient(top, #67ffff65, #342c88c4);
+  z-index: 1;
+  animation: gradient-animation 4s ease infinite;
+  -webkit-animation: gradient-animation 4s ease infinite;
+  
+
 }
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 30px 0 30px;
   color: #333;
   position: relative;
-  /* background-color: #35aee2; */
-}
-
-.authed-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
+  z-index: 2;
+  min-height: 100vh;
 }
 
 .header-container {
-  /* background-color: #60c657; */
   color: #333;
 }
 
@@ -43,21 +51,26 @@
   font-size: 50px;
   font-weight: bold;
   font-family: 'Audiowide', cursive;
+  background:url(https://image.shutterstock.com/image-vector/colorful-techno-backdrop-aesthetics-vaporwave-260nw-1909563445.jpg) repeat-x;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-animation: gradient-animation 20s linear infinite;
+
 }
 
 .header > span {
   font-weight: lighter;
+  background-image: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: initial;
+  -moz-background-clip: unset;
+  -moz-text-fill-color: initial;
 }
 
 .sub-text {
   font-size: 25px;
-}
-
-.gradient-text {
-  background: -webkit-linear-gradient(left, #60c657 30%, #35aee2 60%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .cta-button {
@@ -76,14 +89,18 @@
   color: white;
 }
 
+.cta-button:active {
+  background-color: #60c657;
+}
+
 .connect-wallet-button {
-  background: -webkit-linear-gradient(left, #ff8867, #332c88);
+  background: -webkit-linear-gradient(left, #67ffff, #332c88);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #ff8867, #332c88);
+  background: -webkit-linear-gradient(right, #67ffff, #332c88);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
   margin-left: 10px;
@@ -91,13 +108,14 @@
 
 .footer-container {
   display: flex;
+  margin-top: 20px;
   justify-content: center;
   align-items: center;
   position: absolute;
   width: 100%;
   bottom: 0;
   left: 0;
-  /* padding-bottom: 45px; */
+  background-color: -webkit-linear-gradient(top, rgba(51, 51, 51, 0), #333);
 }
 
 .twitter-logo {
@@ -109,8 +127,7 @@
   font-size: 16px;
   font-weight: bold;
   font-family: 'Audiowide', cursive;
-  color: #333;
-
+  color: #fff;
 }
 
 .connected-container input[type='text'] {
