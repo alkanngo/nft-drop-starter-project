@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import SkewLoader from "react-spinners/SkewLoader";
+import CountdownTimer from '../CountdownTimer';
+
 import { Connection, PublicKey } from '@solana/web3.js';
 import { Program, Provider, web3 } from '@project-serum/anchor';
 import { MintLayout, TOKEN_PROGRAM_ID, Token } from '@solana/spl-token';
@@ -28,6 +31,8 @@ const CandyMachine = ({ walletAddress }) => {
 
   const [machineStats, setMachineStats] = useState(null);
   const [mints, setMints] = useState([]);
+  const [isMinting, setIsMinting] = useState(false);
+  const [isLoadingMints, setIsLoadingMints] = useState(false);
 
 
   useEffect(() => {
@@ -94,6 +99,8 @@ const CandyMachine = ({ walletAddress }) => {
       goLiveDateTimeString,
     });
 
+    setIsLoadingMints(true);
+
     const data = await fetchHashTable(
       process.env.REACT_APP_CANDY_MACHINE_ID,
       true
@@ -114,6 +121,8 @@ const CandyMachine = ({ walletAddress }) => {
         }
       }
     }
+
+    setIsLoadingMints(false);
   };
 
   const renderMintedItems = () => (
@@ -221,6 +230,7 @@ const CandyMachine = ({ walletAddress }) => {
 
   const mintToken = async () => {
     try {
+      setIsMinting(true);
       const mint = web3.Keypair.generate();
       const token = await getTokenWallet(
         walletAddress.publicKey,
@@ -305,6 +315,8 @@ const CandyMachine = ({ walletAddress }) => {
             const { result } = notification;
             if (!result.err) {
               console.log('NFT Minted!');
+              setIsMinting(false);
+              await getCandyMachineState();
             }
           }
         },
@@ -312,6 +324,8 @@ const CandyMachine = ({ walletAddress }) => {
       );
     } catch (error) {
       let message = error.msg || 'Minting failed! Please try again!';
+
+      setIsMinting(false);
 
       if (!error.msg) {
         if (error.message.indexOf('0x138')) {
@@ -362,15 +376,46 @@ const CandyMachine = ({ walletAddress }) => {
     });
   };
 
+  // Create render function
+  const renderDropTimer = () => {
+    // Get the current date and dropDate in a JavaScript Date object
+    const currentDate = new Date();
+    const dropDate = new Date(machineStats.goLiveData * 1000);
+
+    // If currentDate is before dropDate, render our Countdown component
+    if (currentDate < dropDate) {
+      console.log('Before drop date!');
+      // Don't forget to pass over your dropDate!
+      return <CountdownTimer dropDate={dropDate} />;
+    }
+
+    // Else let's just return the current drop date
+    return <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>;
+  };
+
+  const renderLoader = () => {
+    return (
+      <div className="loader-container">
+        <p className="name">LOADING MINTS...</p>
+        <SkewLoader color="#fff" />
+      </div>
+    );
+  }
+
   return (
     // Only show this if machineStats is available
     machineStats && (
       <div className="machine-container">
-        <p>{`Drop Date: ${machineStats.goLiveDateTimeString}`}</p>
+        {renderDropTimer()}
         <p>{`Items Minted: ${machineStats.itemsRedeemed} / ${machineStats.itemsAvailable}`}</p>
-        <button className="cta-button mint-button" onClick={mintToken}>
-            Mint NFT
+        <button 
+          className="cta-button mint-button" 
+          onClick={mintToken}
+          disabled={isMinting}
+        >
+          Mint NFT
         </button>
+        {isLoadingMints && renderLoader()}
         {mints.length > 0 && renderMintedItems()}
       </div>
     )

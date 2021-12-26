@@ -1,8 +1,16 @@
+.timer-container {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+}
+
 .timer-container .timer-header {
   font-size: 20px;
   font-weight: bold;
+  max-width: 100%;
 }
 
 .timer-container .timer-value {
   font-size: 18px;
+  max-width: 100%;
 }

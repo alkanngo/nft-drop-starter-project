@@ -40,10 +40,17 @@
   overflow-wrap: break-word;
 }
 
+  .sub-text {
+    color: #333;
+    font-family: 'Audiowide', cursive;
+    font-weight: bold;
+  }
 
-.gif-info .name {
+
+  .name {
   font-size: 1.1rem;
   font-weight: bold;
+  font-family: 'Audiowide', cursive;
   color:#fff;
   width: 20vw;
   max-width: 100px;
